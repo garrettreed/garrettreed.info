@@ -26,6 +26,7 @@
 }
 
 $glitch-length: 2;
+$image-aspect-ratio: 66.20%;
 @mixin glitch-anim($name) {
     @keyframes #{$name} {
         $steps: 20;
@@ -47,7 +48,7 @@ $glitch-length: 2;
     overflow: hidden;
     transform: translate(-50%, 6vw);
     width: 140%;
-    padding-top: 80%;
+    padding-top: $image-aspect-ratio * 1.4;
 }
 
 .home__featured-image,
@@ -135,13 +136,15 @@ $glitch-length: 2;
     font-size: 16px;
     color: white;
     cursor: pointer;
+    display: inline-block;
+    text-decoration: underline;
 
     & ~ & {
         margin-left: 1em;
     }
 
     &:hover {
-        text-decoration: underline;
+        transform: skewX(35deg);
     }
 }
 
@@ -152,6 +155,12 @@ $glitch-length: 2;
 
     a {
         color: white;
+        text-decoration: underline;
+    }
+
+    a:hover {
+        display: inline-block;
+        transform: skewX(35deg);
     }
 }
 
@@ -166,5 +175,12 @@ $glitch-length: 2;
     .home__featured-image {
         padding-top: 66.20%;
         width: 100%;
+    }
+}
+
+@media screen and (min-width: 1200px) {
+    .home__featured-image {
+        padding-top: $image-aspect-ratio * 0.8;
+        width: 80%;
     }
 }
