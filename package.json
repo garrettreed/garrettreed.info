@@ -1,14 +1,14 @@
 {
   "name": "static-starter",
-  "version": "2.0.0",
-  "description": "Template for a static site",
+  "version": "0.1.0",
+  "description": "Personal website",
   "main": "gulpfile.js",
   "scripts": {
     "start": "./node_modules/.bin/gulp",
     "build": "./node_modules/.bin/gulp build"
   },
   "author": "Garrett Reed <garrett@garrettreed.info>",
-  "license": "ISC",
+  "license": "UNLICENSED",
   "dependencies": {},
   "devDependencies": {
     "@babel/core": "^7.6.2",
