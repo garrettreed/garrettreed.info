@@ -25,14 +25,69 @@
     line-height: 0.5;
 }
 
+$glitch-length: 2;
+@mixin glitch-anim($name) {
+    @keyframes #{$name} {
+        $steps: 20;
+        @for $i from 0 through $steps {
+            #{percentage($i*(1/$steps))} {
+                $top: random(100);
+                $bottom: random(101 - $top);
+                clip-path: inset(#{$top}% 0 #{$bottom}% 0);
+            }
+        }
+    }
+}
+@include glitch-anim('glitch-anim-1');
+@include glitch-anim('glitch-anim-2');
+
 .home__featured-image {
-    width: 100%;
-    height: auto;
-    max-height: 80vh;
+    position: relative;
+    font-size: 0;
+    overflow: hidden;
+    transform: translate(-50%, 6vw);
+    width: 140%;
+    padding-top: 80%;
+}
+
+.home__featured-image,
+.home__featured-image::before,
+.home__featured-image::after {
+    background-image: url(/img/little-garrett.jpg);
+    background-size: cover;
+    background-position: center center;
+}
+
+.home__featured-image::before,
+.home__featured-image::after {
+    content: "";
     position: absolute;
-    top: 6vw;
-    left: -50%;
-    object-fit: cover;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.home__featured-image:hover {
+    &:before {
+        left: 1%;
+        animation: glitch-anim-1 #{$glitch-length}s infinite linear alternate-reverse;
+    }
+
+    &:after {
+        right: -1%;
+        animation: glitch-anim-2 #{$glitch-length}s infinite linear alternate-reverse;
+    }
+}
+
+.home__featured-image:before {
+    left: 1%;
+    animation: glitch-anim-1 #{$glitch-length}s 1 linear alternate-reverse;
+}
+
+.home__featured-image:after {
+    right: -1%;
+    animation: glitch-anim-2 #{$glitch-length}s 1 linear alternate-reverse;
 }
 
 .home__links-list {
@@ -50,7 +105,6 @@
     display: block;
 
     &:hover {
-        // letter-spacing: 0.1em;
         transform: skewX(35deg);
     }
 }
@@ -105,4 +159,12 @@
 #info--listening:checked ~ .home__info-detail--listening,
 #info--working:checked ~ .home__info-detail--working {
     display: block;
+}
+
+
+@media screen and (min-width: 640px) {
+    .home__featured-image {
+        padding-top: 66.20%;
+        width: 100%;
+    }
 }
