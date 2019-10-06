@@ -1,0 +1,33 @@
+{
+  "name": "static-starter",
+  "version": "2.0.0",
+  "description": "Template for a static site",
+  "main": "gulpfile.js",
+  "scripts": {
+    "start": "./node_modules/.bin/gulp",
+    "build": "./node_modules/.bin/gulp build"
+  },
+  "author": "Garrett Reed <garrett@garrettreed.info>",
+  "license": "ISC",
+  "dependencies": {},
+  "devDependencies": {
+    "@babel/core": "^7.6.2",
+    "@babel/preset-env": "^7.6.2",
+    "browser-sync": "^2.26.7",
+    "dotenv": "^8.1.0",
+    "gulp": "^4.0.2",
+    "gulp-autoprefixer": "^7.0.0",
+    "gulp-babel": "^8.0.0",
+    "gulp-clean": "^0.4.0",
+    "gulp-concat": "^2.6.1",
+    "gulp-if": "^3.0.0",
+    "gulp-mustache": "^4.1.2",
+    "gulp-rev": "^9.0.0",
+    "gulp-rev-rewrite": "^2.0.0",
+    "gulp-sass": "^4.0.2",
+    "gulp-sourcemap": "^1.0.1",
+    "gulp-sourcemaps": "^2.6.5",
+    "gulp-uglify": "^3.0.2",
+    "imagemin-pngquant": "^8.0.0"
+  }
+}

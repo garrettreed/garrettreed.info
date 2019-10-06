@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>This is a template</title>
+    <meta name="description" content="This is a template">
+    <link href="https://fonts.googleapis.com/css?family=Major+Mono+Display&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="dist/dist.css">
+</head>
+<body class="home__body">
+    <div class="home__title-wrap">
+        <h1 class="home__title-head marquee">Information</h1>
+        <p class="home__title-head marquee marquee--dupe">Information</p>
+    </div>
+
+    <img class="home__featured-image" src="img/little-garrett.jpg" title="Garrett Lee Reed" alt="Garrett Lee Reed">
+
+    <ul class="home__links-list">
+        {{#links}}
+        <li class="home__link"><a href="{{url}}" title="{{title}}">{{title}}</a></li>
+        {{/links}}
+    </ul>
+
+    <div class="home__info-wrap">
+        <h2 class="home__info-title">Current Events</h2>
+
+        <input type="radio" id="info--reading" name="info" class="home__info-toggle">
+        <label for="info--reading" class="home__info-label">Reading</label>
+
+        <input type="radio" id="info--listening" name="info" class="home__info-toggle">
+        <label for="info--listening" class="home__info-label">Listening</label>
+
+        <input type="radio" id="info--working" name="info" class="home__info-toggle">
+        <label for="info--working" class="home__info-label">Working</label>
+
+        <ul class="home__info-detail home__info-detail--reading">
+            {{#reading}}
+            <li>{{title}} by {{author}}</li>
+            {{/reading}}
+        </ul>
+
+        <ul class="home__info-detail home__info-detail--listening">
+            {{#listening}}
+            <li>{{album}} by {{artist}}</li>
+            {{/listening}}
+        </ul>
+
+        <ul class="home__info-detail home__info-detail--working">
+            {{#working}}
+            <li>{{{.}}}</li>
+            {{/working}}
+        </ul>
+    </div>
+
+    <script src="dist/dist.js"></script>
+</body>
+</html>
