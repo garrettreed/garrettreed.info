@@ -22,8 +22,6 @@
     "gulp-concat": "^2.6.1",
     "gulp-if": "^3.0.0",
     "gulp-mustache": "^4.1.2",
-    "gulp-rev": "^9.0.0",
-    "gulp-rev-rewrite": "^2.0.0",
     "gulp-sass": "^4.0.2",
     "gulp-sourcemap": "^1.0.1",
     "gulp-sourcemaps": "^2.6.5",
