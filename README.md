@@ -5,7 +5,6 @@ A static website. Currently hosted on netlify.
 ## To-Do
 
 -   Favicon
--   Analytics
 -   Spotify or Last.fm for listening
 -   Goodreads for reading
 -   Github and/or Gitlab for work maybe?
