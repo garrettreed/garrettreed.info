@@ -1,5 +1,5 @@
 build:
-    rm -rf functions
-    mkdir functions
+	rm -rf functions
+	mkdir functions
 	go get ./api/...
 	go build -o functions/hello-lambda ./...
