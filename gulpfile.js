@@ -30,6 +30,9 @@ const paths = {
     }
 };
 
+const templateData = require("./data.json");
+templateData.apiEndpoint = process.env.API_ENDPOINT;
+
 function styles() {
     return gulp
         .src(paths.styles.src)
@@ -57,7 +60,7 @@ function scripts() {
 function templates() {
     return gulp
         .src(paths.templates.src)
-        .pipe(mustache("data.json", { extension: ".html" }, {}))
+        .pipe(mustache(templateData, { extension: ".html" }, {}))
         .pipe(gulp.dest(paths.templates.dest));
 }
 

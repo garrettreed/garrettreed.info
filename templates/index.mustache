@@ -9,6 +9,10 @@
     <link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
     <link href="https://fonts.googleapis.com/css?family=Major+Mono+Display&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="dist/dist.css">
+
+    <script>
+        window.apiEndpoint = "{{{apiEndpoint}}}";
+    </script>
 </head>
 <body class="home__body">
     <div class="home__title-wrap">
@@ -36,19 +40,15 @@
         <input type="radio" id="info--working" name="info" class="home__info-toggle">
         <label for="info--working" class="home__info-label">Working</label>
 
-        <ul class="home__info-detail home__info-detail--reading">
+        <ul class="home__info-detail home__info-detail--reading" id="list-reading">
             {{#reading}}
             <li>{{title}} by {{author}}</li>
             {{/reading}}
         </ul>
 
-        <ul class="home__info-detail home__info-detail--listening">
-            {{#listening}}
-            <li>{{album}} by {{artist}}</li>
-            {{/listening}}
-        </ul>
+        <ul class="home__info-detail home__info-detail--listening" id="list-listening"></ul>
 
-        <ul class="home__info-detail home__info-detail--working">
+        <ul class="home__info-detail home__info-detail--working" id="list-working">
             {{#working}}
             <li>{{{.}}}</li>
             {{/working}}

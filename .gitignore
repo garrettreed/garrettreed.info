@@ -2,3 +2,6 @@
 node_modules
 .env
 /functions
+/notes.md
+/.vscode
+/tools/api-server

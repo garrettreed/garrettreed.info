@@ -1,5 +1,6 @@
 build:
 	rm -rf functions
 	mkdir functions
-	go get ./api/...
-	go build -o functions/hello-lambda ./...
+	go get github.com/aws/aws-lambda-go/events
+	go get github.com/aws/aws-lambda-go/lambda
+	go build -o functions/main api/main.go
