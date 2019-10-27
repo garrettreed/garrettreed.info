@@ -22,7 +22,7 @@ func getSiteData(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
-    envErr := godotenv.Load("../.env")
+    envErr := godotenv.Load()
     if envErr != nil {
         log.Fatal(envErr)
     }
