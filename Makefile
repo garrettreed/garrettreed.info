@@ -10,9 +10,9 @@ build:
 	npm run build
 
 build-local:
-	go get ./api/...
+	go get github.com/aws/aws-lambda-go/events
+	go get github.com/aws/aws-lambda-go/lambda
 	go build -o tools/api-server tools/api-server.go
-	npm run build
 
 serve-api:
 	tools/api-server

@@ -21,24 +21,6 @@
             "url": "mailto:hello@garrettreed.info"
         }
     ],
-    "reading": [
-        {
-            "title": "The Little Schemer",
-            "author": "Daniel P. Friedman, Matthias Felleisen"
-        },
-        {
-            "title": "The First Time Manager",
-            "author": "Jim McCormick"
-        },
-        {
-            "title": "The Rise of Endymion",
-            "author": "Dan Simmons"
-        },
-        {
-            "title": "Writing an Interpreter in Go",
-            "author": "Thorsten Ball"
-        }
-    ],
     "working": [
         "<a href=\"https://www.theramkat.com\">theramkat.com</a>",
         "<a href=\"https://www.legnasoftware.com\">legnasoftware.com</a>",
