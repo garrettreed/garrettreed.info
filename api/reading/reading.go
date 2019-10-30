@@ -1,24 +1,24 @@
 package reading
 
 import (
-    "encoding/xml"
+	"encoding/xml"
 	"io/ioutil"
 	"net/http"
-    "time"
-    "os"
+	"os"
+	"time"
 )
 
 // Selection query of XML starts with top tag,
 // so "GoodreadsResponse" won't be included.
 type GoodreadsCurrentlyReading struct {
-    Reviews []struct {
-        Book struct {
-            Title string `xml:"title" json:"title"`
-            Authors []struct {
-                Name string `xml:"name" json:"name"`
-            } `xml:"authors>author" json:"authors"`
-        } `xml:"book" json:"book"`
-    } `xml:"reviews>review" json:"reviews"`
+	Reviews []struct {
+		Book struct {
+			Title   string `xml:"title" json:"title"`
+			Authors []struct {
+				Name string `xml:"name" json:"name"`
+			} `xml:"authors>author" json:"authors"`
+		} `xml:"book" json:"book"`
+	} `xml:"reviews>review" json:"reviews"`
 }
 
 // TODO: impelement unmarshal method that uses the decoder api to enforce DisallowUnknownFields
@@ -43,12 +43,12 @@ func GetCurrentlyReading() (books GoodreadsCurrentlyReading, err error) {
 	body, readErr := ioutil.ReadAll(res.Body)
 	if readErr != nil {
 		return books, readErr
-    }
+	}
 
-    xmlErr := xml.Unmarshal(body, &books)
+	xmlErr := xml.Unmarshal(body, &books)
 	if xmlErr != nil {
 		return GoodreadsCurrentlyReading{}, xmlErr
-    }
+	}
 
 	return books, err
 }

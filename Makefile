@@ -1,5 +1,4 @@
 build:
-	rm -rf functions
 	mkdir functions
 	go get ./...
 	go build -o functions/main api/main.go
