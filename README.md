@@ -1,3 +1,3 @@
 # garrettreed.info
 
-A static website. Currently hosted on netlify.
+A static website with some go functions. Hosted on netlify.
