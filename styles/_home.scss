@@ -174,7 +174,7 @@ $image-aspect-ratio: 66.20%;
 @media screen and (min-width: 640px) {
     .home__featured-image {
         width: 100%;
-        padding-top: 66.20%;
+        padding-top: $image-aspect-ratio;
     }
 }
 
