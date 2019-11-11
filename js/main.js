@@ -12,13 +12,12 @@
     });
 
     function buildListeningList(listening) {
-        const albumSet = new Set();
-        listening.tracks.forEach(function(track, index) {
-            if (index > 4) {
-                return;
-            }
-            albumSet.add(`${track.album} by ${track.artist}`);
+        let albumSet = {};
+        listening.tracks.forEach(function(track) {
+            albumSet[`${track.album} by ${track.artist}`] = "";
         });
+        albumSet = Object.keys(albumSet);
+        albumSet.length = 4;
 
         const albumListFragment = document.createDocumentFragment();
         albumSet.forEach(function(album) {
