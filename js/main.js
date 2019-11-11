@@ -13,11 +13,11 @@
 
     function buildListeningList(listening) {
         const albumSet = new Set();
-        listening.recenttracks.track.forEach(function(t, index) {
+        listening.tracks.forEach(function(track, index) {
             if (index > 4) {
                 return;
             }
-            albumSet.add(`${t.album["#text"]} by ${t.artist["#text"]}`);
+            albumSet.add(`${track.album} by ${track.artist}`);
         });
 
         const albumListFragment = document.createDocumentFragment();

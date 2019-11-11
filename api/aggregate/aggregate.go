@@ -6,7 +6,7 @@ import (
 )
 
 type SiteData struct {
-	Listening listening.LastFmRecentTracks      `json:"listening"`
+	Listening *listening.RecentTracks           `json:"listening"`
 	Reading   reading.GoodreadsCurrentlyReading `json:"reading"`
 }
 
