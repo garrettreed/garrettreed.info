@@ -6,8 +6,8 @@ import (
 )
 
 type SiteData struct {
-	Listening *listening.RecentTracks           `json:"listening"`
-	Reading   reading.GoodreadsCurrentlyReading `json:"reading"`
+	Listening []listening.Track   `json:"listening"`
+	Reading   []reading.Book `json:"reading"`
 }
 
 func GetAggregateData() (siteData SiteData, err error) {

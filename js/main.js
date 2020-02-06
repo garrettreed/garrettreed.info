@@ -13,7 +13,7 @@
 
     function buildListeningList(listening) {
         let albumSet = {};
-        listening.tracks.forEach(function(track) {
+        listening.forEach(function(track) {
             albumSet[`${track.album} by ${track.artist}`] = "";
         });
         albumSet = Object.keys(albumSet);
@@ -32,14 +32,10 @@
 
     function buildReading(reading) {
         const readingListFragment = document.createDocumentFragment();
-        reading.reviews.forEach(function(review) {
+        reading.forEach(function(book) {
             const item = document.createElement("li");
-            const authors = review.book.authors
-                .reduce(function(authorList, author) {
-                    return authorList.concat([author.name]);
-                }, [])
-                .join(", ");
-            item.innerText = `${review.book.title} by ${authors}`;
+            const authors = book.authors.join(", ");
+            item.innerText = `${book.title} by ${authors}`;
             readingListFragment.appendChild(item);
         });
         const list = document.getElementById("list-reading");

@@ -23,10 +23,6 @@ type LastFmRecentTracks struct {
 	} `json:"recenttracks"`
 }
 
-type RecentTracks struct {
-	Tracks []Track `json:"tracks"`
-}
-
 type Track struct {
 	Name   string `json:"name"`
 	Url    string `json:"url"`
@@ -35,7 +31,7 @@ type Track struct {
 }
 
 // TODO: impelement unmarshal method that uses the decoder api to enforce DisallowUnknownFields
-func GetRecentTracks() (recentTracks *RecentTracks, err error) {
+func GetRecentTracks() (tracks []Track, err error) {
 	var endpoint string = "http://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user=" + os.Getenv("LASTFM_USER") + "&api_key=" + os.Getenv("LASTFM_API_KEY") + "&format=json"
 
 	lastFmClient := http.Client{
@@ -63,10 +59,10 @@ func GetRecentTracks() (recentTracks *RecentTracks, err error) {
 		return nil, jsonErr
 	}
 
-	recentTracks = &RecentTracks{}
+	tracks = []Track{}
 	for _, track := range lastFmTracks.RecentTracks.Track {
-		recentTracks.Tracks = append(
-			recentTracks.Tracks,
+		tracks = append(
+			tracks,
 			Track{
 				Name: track.TrackName,
 				Url: track.TrackUrl,
@@ -76,5 +72,5 @@ func GetRecentTracks() (recentTracks *RecentTracks, err error) {
 		)
 	}
 
-	return recentTracks, nil
+	return tracks, nil
 }
