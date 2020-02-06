@@ -9,7 +9,9 @@
   },
   "author": "Garrett Reed <garrett@garrettreed.info>",
   "license": "UNLICENSED",
-  "dependencies": {},
+  "dependencies": {
+    "netlify-cms": "^2.10.17"
+  },
   "devDependencies": {
     "@babel/core": "^7.6.2",
     "@babel/preset-env": "^7.6.2",
