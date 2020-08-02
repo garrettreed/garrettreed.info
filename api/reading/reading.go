@@ -8,8 +8,10 @@ import (
 	"time"
 )
 
+// GoodreadsCurrentlyReading represents the relevant response structure
+// of the Goodreads reviews api.
 // Selection query of XML starts with top tag,
-// so "GoodreadsResponse" won't be included.
+// to prevent "GoodreadsResponse" from being included.
 type GoodreadsCurrentlyReading struct {
 	Reviews []struct {
 		Book struct {
@@ -21,14 +23,21 @@ type GoodreadsCurrentlyReading struct {
 	} `xml:"reviews>review" json:"reviews"`
 }
 
+// Book represents a publication with a title and author(s)
 type Book struct {
-	Title string `json:"title"`
+	Title   string   `json:"title"`
 	Authors []string `json:"authors"`
 }
 
-// TODO: impelement unmarshal method that uses the decoder api to enforce DisallowUnknownFields
+// GetCurrentlyReading requests Goodreads' api for items in the user's currently
+// reading shelf, and parses the response to build a list of Books.
+// TODO: impelement unmarshal method that uses the decoder api
+// to enforce DisallowUnknownFields
 func GetCurrentlyReading() (books []Book, err error) {
-	var endpoint string = "https://www.goodreads.com/review/list?v=2&id=" + os.Getenv("GOODREADS_USER_ID") + "&shelf=currently-reading&key=" + os.Getenv("GOODREADS_API_KEY")
+	var endpoint string = "https://www.goodreads.com/review/list?v=2&id=" +
+		os.Getenv("GOODREADS_USER_ID") +
+		"&shelf=currently-reading&key=" +
+		os.Getenv("GOODREADS_API_KEY")
 
 	goodreadsClient := http.Client{
 		Timeout: time.Second * 5,

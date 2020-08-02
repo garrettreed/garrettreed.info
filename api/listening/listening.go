@@ -8,11 +8,13 @@ import (
 	"time"
 )
 
+// LastFmRecentTracks represents the relevant response structure of last.fm's
+// audioscrobbler recent tracks api.
 type LastFmRecentTracks struct {
 	RecentTracks struct {
 		Track []struct {
 			TrackName string `json:"name"`
-			TrackUrl  string `json:"url"`
+			TrackURL  string `json:"url"`
 			Album     struct {
 				Title string `json:"#text"`
 			} `json:"album"`
@@ -23,13 +25,16 @@ type LastFmRecentTracks struct {
 	} `json:"recenttracks"`
 }
 
+// Track represents a single song
 type Track struct {
 	Name   string `json:"name"`
-	Url    string `json:"url"`
+	URL    string `json:"url"`
 	Album  string `json:"album"`
 	Artist string `json:"artist"`
 }
 
+// GetRecentTracks requests Last.fm's api for a user's recently-listened
+// tracks and parses the response to build a list of Books.
 // TODO: impelement unmarshal method that uses the decoder api to enforce DisallowUnknownFields
 func GetRecentTracks() (tracks []Track, err error) {
 	var endpoint string = "http://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user=" + os.Getenv("LASTFM_USER") + "&api_key=" + os.Getenv("LASTFM_API_KEY") + "&format=json"
@@ -64,9 +69,9 @@ func GetRecentTracks() (tracks []Track, err error) {
 		tracks = append(
 			tracks,
 			Track{
-				Name: track.TrackName,
-				Url: track.TrackUrl,
-				Album: track.Album.Title,
+				Name:   track.TrackName,
+				URL:    track.TrackURL,
+				Album:  track.Album.Title,
 				Artist: track.Artist.Title,
 			},
 		)

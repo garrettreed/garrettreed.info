@@ -1,16 +1,20 @@
-build:
+build: deps
 	mkdir functions
-	go get ./...
 	go build -o functions/main api/main.go
 	npm run build
+.PHONY: build
 
-build-local:
-	go get ./...
+build-local: deps
 	go build -o tools/api-server tools/api-server.go
 	npm run build
+.PHONY: build-local
+
+deps:
+	@GO111MODULE=on go mod download
+	@GO111MODULE=on go mod vendor
+	npm install
+.PHONY: deps
 
 serve-api:
 	tools/api-server
-
-serve-static:
-	npm run start
+.PHONY: serve-api
