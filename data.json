@@ -13,16 +13,11 @@
             "url": "https://linkedin.com/in/glreed/"
         },
         {
-            "title": "airtype",
-            "url": "https://www.airtype.com/"
-        },
-        {
             "title": "contact",
             "url": "mailto:hello@garrettreed.info"
         }
     ],
     "working": [
-        "<a href=\"https://www.psychologytoday.com/us/therapists\">Find a Therapist</a>",
-        "<a href=\"https://www.mygrizzly.com\">mygrizzly.com</a>"
+        "<a href=\"https://www.psychologytoday.com/us/therapists\">Psychology Today</a>"
     ]
 }
