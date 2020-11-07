@@ -16,14 +16,14 @@ func handler(request events.APIGatewayProxyRequest) (events.APIGatewayProxyRespo
 		log.Fatal(siteDataErr)
 	}
 
-	siteDataJson, jsonErr := json.Marshal(siteData)
+	siteDataJSON, jsonErr := json.Marshal(siteData)
 	if jsonErr != nil {
 		log.Fatal(jsonErr)
 	}
 
 	return events.APIGatewayProxyResponse{
 		StatusCode: 200,
-		Body:       string(siteDataJson),
+		Body:       string(siteDataJSON),
 		Headers:    map[string]string{"content-type": "application/json"},
 	}, nil
 }

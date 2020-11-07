@@ -1,25 +1,50 @@
 package aggregate
 
 import (
+	"errors"
+
 	"github.com/garrettreed/garrettreed.info/api/listening"
 	"github.com/garrettreed/garrettreed.info/api/reading"
 )
 
 type SiteData struct {
-	Listening []listening.Track   `json:"listening"`
-	Reading   []reading.Book `json:"reading"`
+	Listening []listening.Track `json:"listening"`
+	Reading   []reading.Book    `json:"reading"`
 }
 
-func GetAggregateData() (siteData SiteData, err error) {
+type readingResult struct {
+	Reading []reading.Book
+	Error   error
+}
+
+type listeningResult struct {
+	Listening []listening.Track
+	Error     error
+}
+
+func getReadingData(readingChan chan readingResult) {
 	reading, readingErr := reading.GetCurrentlyReading()
-	if readingErr != nil {
-		return siteData, readingErr
+	readingChan <- readingResult{reading, readingErr}
+}
+
+func getListeningData(listeningChan chan listeningResult) {
+	listening, listeningErr := listening.GetRecentTracks()
+	listeningChan <- listeningResult{listening, listeningErr}
+}
+
+func GetAggregateData() (sd *SiteData, err error) {
+	readingChan := make(chan readingResult)
+	listeningChan := make(chan listeningResult)
+	go getReadingData(readingChan)
+	go getListeningData(listeningChan)
+	rs := <-readingChan
+	ls := <-listeningChan
+	close(readingChan)
+	close(listeningChan)
+
+	if rs.Error != nil || ls.Error != nil {
+		return sd, errors.New("Error")
 	}
 
-	listening, musicErr := listening.GetRecentTracks()
-	if musicErr != nil {
-		return siteData, musicErr
-	}
-
-	return SiteData{listening, reading}, nil
+	return &SiteData{ls.Listening, rs.Reading}, nil
 }
