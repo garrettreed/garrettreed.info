@@ -1,6 +1,6 @@
 build: deps
 	mkdir -p functions
-	go build -o functions/main api/main.go
+	GOBIN=${PWD}/functions go install ./...
 	npm run build
 .PHONY: build
 
