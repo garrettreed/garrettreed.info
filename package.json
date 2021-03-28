@@ -9,7 +9,6 @@
   },
   "author": "Garrett Reed <garrett@garrettreed.info>",
   "license": "UNLICENSED",
-  "dependencies": {},
   "devDependencies": {
     "@babel/core": "^7.11.0",
     "@babel/preset-env": "^7.11.0",
