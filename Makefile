@@ -1,5 +1,5 @@
 build: deps
-	mkdir functions
+	mkdir -p functions
 	go build -o functions/main api/main.go
 	npm run build
 .PHONY: build
