@@ -2,6 +2,7 @@ package reading
 
 import (
 	"encoding/xml"
+	"errors"
 	"io/ioutil"
 	"net/http"
 	"os"
@@ -49,8 +50,8 @@ func GetCurrentlyReading() (books []Book, err error) {
 	}
 
 	res, getErr := goodreadsClient.Do(req)
-	if getErr != nil {
-		return nil, getErr
+	if getErr != nil || res.StatusCode != http.StatusOK {
+		return nil, errors.New("Failed to query goodreads api.")
 	}
 
 	body, readErr := ioutil.ReadAll(res.Body)

@@ -2,6 +2,7 @@ package listening
 
 import (
 	"encoding/json"
+	"errors"
 	"io/ioutil"
 	"net/http"
 	"os"
@@ -49,8 +50,8 @@ func GetRecentTracks() (tracks []Track, err error) {
 	}
 
 	res, getErr := lastFmClient.Do(req)
-	if getErr != nil {
-		return nil, getErr
+	if getErr != nil || res.StatusCode != http.StatusOK {
+		return nil, errors.New("Failed to query last.fm api.")
 	}
 
 	body, readErr := ioutil.ReadAll(res.Body)

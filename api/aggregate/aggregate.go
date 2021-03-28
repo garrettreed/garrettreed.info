@@ -39,8 +39,6 @@ func GetAggregateData() (sd *SiteData, err error) {
 	go getListeningData(listeningChan)
 	rs := <-readingChan
 	ls := <-listeningChan
-	close(readingChan)
-	close(listeningChan)
 
 	if rs.Error != nil || ls.Error != nil {
 		return sd, errors.New("Error")
