@@ -1,6 +1,6 @@
 build: deps
 	mkdir -p functions
-	GOBIN=${PWD}/functions go install ./...
+	GOOS=linux GOARCH=amd64 go build -o functions/main ./api/main.go
 	npm run build
 .PHONY: build
 
