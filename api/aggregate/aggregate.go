@@ -1,7 +1,7 @@
 package aggregate
 
 import (
-	"errors"
+	"fmt"
 
 	"github.com/garrettreed/garrettreed.info/api/listening"
 	"github.com/garrettreed/garrettreed.info/api/reading"
@@ -40,8 +40,12 @@ func GetAggregateData() (sd *SiteData, err error) {
 	rs := <-readingChan
 	ls := <-listeningChan
 
-	if rs.Error != nil || ls.Error != nil {
-		return sd, errors.New("Error")
+	if rs.Error != nil {
+		return sd, fmt.Errorf("failed to get reading data: %v", rs.Error)
+	}
+
+	if ls.Error != nil {
+		return sd, fmt.Errorf("failed to get listening data: %v", ls.Error)
 	}
 
 	return &SiteData{ls.Listening, rs.Reading}, nil

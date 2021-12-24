@@ -1,27 +1,24 @@
 package reading
 
 import (
-	"encoding/xml"
+	"encoding/json"
 	"errors"
+	"fmt"
 	"io/ioutil"
 	"net/http"
 	"os"
 	"time"
 )
 
-// GoodreadsCurrentlyReading represents the relevant response structure
-// of the Goodreads reviews api.
-// Selection query of XML starts with top tag,
-// to prevent "GoodreadsResponse" from being included.
-type GoodreadsCurrentlyReading struct {
-	Reviews []struct {
-		Book struct {
-			Title   string `xml:"title" json:"title"`
-			Authors []struct {
-				Name string `xml:"name" json:"name"`
-			} `xml:"authors>author" json:"authors"`
-		} `xml:"book" json:"book"`
-	} `xml:"reviews>review" json:"reviews"`
+// Volumes represents the relevant response structure of Google Books
+// Bookshelf Volumes List api endpoint
+type Volumes struct {
+	Items []struct {
+		VolumeInfo struct {
+			Title   string   `json:"title"`
+			Authors []string `json:"authors"`
+		} `json:"volumeInfo"`
+	} `json:"items"`
 }
 
 // Book represents a publication with a title and author(s)
@@ -35,12 +32,9 @@ type Book struct {
 // TODO: impelement unmarshal method that uses the decoder api
 // to enforce DisallowUnknownFields
 func GetCurrentlyReading() (books []Book, err error) {
-	var endpoint string = "https://www.goodreads.com/review/list?v=2&id=" +
-		os.Getenv("GOODREADS_USER_ID") +
-		"&shelf=currently-reading&key=" +
-		os.Getenv("GOODREADS_API_KEY")
+	endpoint := fmt.Sprintf("https://www.googleapis.com/books/v1/users/%s/bookshelves/%s/volumes", os.Getenv("GOOGLE_BOOKS_USER_ID"), os.Getenv("GOOGLE_BOOKS_BOOKSHELF_ID"))
 
-	goodreadsClient := http.Client{
+	booksClient := http.Client{
 		Timeout: time.Second * 5,
 	}
 
@@ -49,9 +43,9 @@ func GetCurrentlyReading() (books []Book, err error) {
 		return nil, reqErr
 	}
 
-	res, getErr := goodreadsClient.Do(req)
+	res, getErr := booksClient.Do(req)
 	if getErr != nil || res.StatusCode != http.StatusOK {
-		return nil, errors.New("Failed to query goodreads api.")
+		return nil, errors.New("failed to query google books api")
 	}
 
 	body, readErr := ioutil.ReadAll(res.Body)
@@ -59,20 +53,22 @@ func GetCurrentlyReading() (books []Book, err error) {
 		return nil, readErr
 	}
 
-	var goodreadsBooks GoodreadsCurrentlyReading
-	xmlErr := xml.Unmarshal(body, &goodreadsBooks)
-	if xmlErr != nil {
-		return nil, xmlErr
+	var volumes Volumes
+	jsonErr := json.Unmarshal(body, &volumes)
+	if jsonErr != nil {
+		return nil, jsonErr
 	}
 
 	books = []Book{}
-	for _, review := range goodreadsBooks.Reviews {
-		var authors []string
-		for _, author := range review.Book.Authors {
-			authors = append(authors, author.Name)
-		}
-		books = append(books, Book{Title: review.Book.Title, Authors: authors})
+	for _, book := range volumes.Items {
+		books = append(
+			books,
+			Book{
+				Title:   book.VolumeInfo.Title,
+				Authors: book.VolumeInfo.Authors,
+			},
+		)
 	}
 
-	return books, err
+	return books, nil
 }
