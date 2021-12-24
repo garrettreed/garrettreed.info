@@ -10,8 +10,8 @@ import (
 	"time"
 )
 
-// Volumes represents the relevant response structure of Google Books
-// Bookshelf Volumes List api endpoint
+// Volumes represents the relevant response structure of Google Books Bookshelf
+// Volumes List api endpoint
 type Volumes struct {
 	Items []struct {
 		VolumeInfo struct {
@@ -27,10 +27,8 @@ type Book struct {
 	Authors []string `json:"authors"`
 }
 
-// GetCurrentlyReading requests Goodreads' api for items in the user's currently
-// reading shelf, and parses the response to build a list of Books.
-// TODO: impelement unmarshal method that uses the decoder api
-// to enforce DisallowUnknownFields
+// GetCurrentlyReading requests Google Books api for items in the user's currently
+// reading bookshelf, and parses the response to build a list of Books.
 func GetCurrentlyReading() (books []Book, err error) {
 	endpoint := fmt.Sprintf("https://www.googleapis.com/books/v1/users/%s/bookshelves/%s/volumes", os.Getenv("GOOGLE_BOOKS_USER_ID"), os.Getenv("GOOGLE_BOOKS_BOOKSHELF_ID"))
 

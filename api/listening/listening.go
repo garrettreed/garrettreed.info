@@ -2,7 +2,6 @@ package listening
 
 import (
 	"encoding/json"
-	"errors"
 	"fmt"
 	"io/ioutil"
 	"net/http"
@@ -37,7 +36,6 @@ type Track struct {
 
 // GetRecentTracks requests Last.fm's api for a user's recently-listened
 // tracks and parses the response to build a list of Books.
-// TODO: impelement unmarshal method that uses the decoder api to enforce DisallowUnknownFields
 func GetRecentTracks() (tracks []Track, err error) {
 	endpoint := fmt.Sprintf("http://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user=%s&api_key=%s+&format=json", os.Getenv("LASTFM_USER"), os.Getenv("LASTFM_API_KEY"))
 
@@ -51,8 +49,11 @@ func GetRecentTracks() (tracks []Track, err error) {
 	}
 
 	res, getErr := lastFmClient.Do(req)
-	if getErr != nil || res.StatusCode != http.StatusOK {
-		return nil, errors.New("Failed to query last.fm api.")
+	if getErr != nil {
+		return nil, fmt.Errorf("last.fm api request failed: %v", getErr)
+	}
+	if res.StatusCode != http.StatusOK {
+		return nil, fmt.Errorf("last.fm api request failed with status code: %d", res.StatusCode)
 	}
 
 	body, readErr := ioutil.ReadAll(res.Body)
