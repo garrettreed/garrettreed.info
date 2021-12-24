@@ -1,11 +1,11 @@
-(function() {
+(function () {
     "use strict";
 
     // Make hover effects work on touch devices.
-    document.addEventListener("touchstart", function() {}, { passive: true });
+    document.addEventListener("touchstart", function () {}, { passive: true });
 
-    fetch(window.apiEndpoint).then(function(fetchResp) {
-        fetchResp.json().then(function(jsonResp) {
+    fetch(window.apiEndpoint).then(function (fetchResp) {
+        fetchResp.json().then(function (jsonResp) {
             buildListeningList(jsonResp.listening);
             buildReading(jsonResp.reading);
         });
@@ -13,14 +13,14 @@
 
     function buildListeningList(listening) {
         let albumSet = {};
-        listening.forEach(function(track) {
+        listening.forEach(function (track) {
             albumSet[`${track.album} by ${track.artist}`] = "";
         });
         albumSet = Object.keys(albumSet);
         albumSet.length = 4;
 
         const albumListFragment = document.createDocumentFragment();
-        albumSet.forEach(function(album) {
+        albumSet.forEach(function (album) {
             const item = document.createElement("li");
             item.innerText = album;
             albumListFragment.appendChild(item);
@@ -32,7 +32,7 @@
 
     function buildReading(reading) {
         const readingListFragment = document.createDocumentFragment();
-        reading.forEach(function(book) {
+        reading.forEach(function (book) {
             const item = document.createElement("li");
             const authors = book.authors.join(", ");
             item.innerText = `${book.title} by ${authors}`;

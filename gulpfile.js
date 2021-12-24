@@ -1,7 +1,7 @@
 require("dotenv").config();
 const gulp = require("gulp");
 const browserSync = require("browser-sync").create();
-const sass = require("gulp-sass");
+const sass = require("gulp-sass")(require("sass"));
 const babel = require("gulp-babel");
 const uglify = require("gulp-uglify");
 const sourcemaps = require("gulp-sourcemaps");
@@ -18,16 +18,16 @@ const distPath = "public/dist/";
 const paths = {
     styles: {
         src: ["libs/**/*.css", "styles/**/*.scss"],
-        dest: distPath
+        dest: distPath,
     },
     scripts: {
         src: ["libs/**/*.js", "js/**/*.js"],
-        dest: distPath
+        dest: distPath,
     },
     templates: {
         src: ["templates/**/*.mustache", "templates/**/*.html", "!templates/partials/**"],
-        dest: "public/"
-    }
+        dest: "public/",
+    },
 };
 
 const templateData = require("./data.json");
@@ -82,7 +82,7 @@ function swallowError(error) {
 
 function serve() {
     browserSync.init({
-        server: "public"
+        server: "public",
     });
     watch();
 }

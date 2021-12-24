@@ -10,21 +10,21 @@
   "author": "Garrett Reed <garrett@garrettreed.info>",
   "license": "UNLICENSED",
   "devDependencies": {
-    "@babel/core": "^7.11.0",
-    "@babel/preset-env": "^7.11.0",
-    "browser-sync": "^2.26.12",
-    "dotenv": "^8.2.0",
+    "@babel/core": "^7.16.5",
+    "@babel/preset-env": "^7.16.5",
+    "browser-sync": "^2.27.7",
+    "dotenv": "^10.0.0",
     "gulp": "^4.0.2",
-    "gulp-autoprefixer": "^7.0.1",
+    "gulp-autoprefixer": "^8.0.0",
     "gulp-babel": "^8.0.0",
     "gulp-clean": "^0.4.0",
     "gulp-concat": "^2.6.1",
     "gulp-if": "^3.0.0",
-    "gulp-mustache": "^4.1.2",
-    "gulp-sass": "^4.1.0",
-    "gulp-sourcemap": "^1.0.1",
-    "gulp-sourcemaps": "^2.6.5",
+    "gulp-mustache": "^5.0.0",
+    "gulp-sass": "^5.0.0",
+    "gulp-sourcemaps": "^3.0.0",
     "gulp-uglify": "^3.0.2",
-    "imagemin-pngquant": "^8.0.0"
+    "imagemin-pngquant": "^9.0.2",
+    "sass": "^1.45.1"
   }
 }
