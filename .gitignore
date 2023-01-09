@@ -6,3 +6,6 @@ node_modules
 /.vscode
 /tools/api-server
 /vendor
+
+# Local Netlify folder
+.netlify

@@ -8,6 +8,7 @@
         fetchResp.json().then(function (jsonResp) {
             buildListeningList(jsonResp.listening);
             buildReading(jsonResp.reading);
+            buildWorking(jsonResp.working);
         });
     });
 
@@ -40,5 +41,19 @@
         });
         const list = document.getElementById("list-reading");
         list.appendChild(readingListFragment);
+    }
+
+    function buildWorking(working) {
+        const workingListFragment = document.createDocumentFragment();
+        working.forEach(function (work) {
+            const item = document.createElement("li");
+            const link = document.createElement("a");
+            link.href = work.url;
+            link.innerText = work.title;
+            item.appendChild(link);
+            workingListFragment.appendChild(item);
+        });
+        const list = document.getElementById("list-working");
+        list.appendChild(workingListFragment);
     }
 })();

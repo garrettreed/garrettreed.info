@@ -10,9 +10,9 @@
   "author": "Garrett Reed <garrett@garrettreed.info>",
   "license": "UNLICENSED",
   "devDependencies": {
-    "@babel/core": "^7.16.5",
-    "@babel/preset-env": "^7.16.5",
-    "browser-sync": "^2.27.7",
+    "@babel/core": "^7.20.12",
+    "@babel/preset-env": "^7.20.2",
+    "browser-sync": "^2.27.11",
     "dotenv": "^10.0.0",
     "gulp": "^4.0.2",
     "gulp-autoprefixer": "^8.0.0",
@@ -21,9 +21,9 @@
     "gulp-concat": "^2.6.1",
     "gulp-if": "^3.0.0",
     "gulp-mustache": "^5.0.0",
-    "gulp-sass": "^5.0.0",
+    "gulp-sass": "^5.1.0",
     "gulp-sourcemaps": "^3.0.0",
     "gulp-uglify": "^3.0.2",
-    "sass": "^1.45.1"
+    "sass": "^1.57.1"
   }
 }
