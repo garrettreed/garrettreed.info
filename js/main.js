@@ -4,7 +4,12 @@
     // Make hover effects work on touch devices.
     document.addEventListener("touchstart", function () {}, { passive: true });
 
-    fetch(window.apiEndpoint).then(function (fetchResp) {
+    fetch(window.apiEndpoint, {
+        cache: "no-cache",
+        headers: {
+            "Content-Type": "application/json",
+        },
+    }).then(function (fetchResp) {
         fetchResp.json().then(function (jsonResp) {
             buildListeningList(jsonResp.listening);
             buildReading(jsonResp.reading);
