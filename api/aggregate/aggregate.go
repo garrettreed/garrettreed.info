@@ -64,7 +64,7 @@ func GetAggregateData() (sd *SiteData, err error) {
 	}
 
 	if ws.Error != nil {
-		return sd, fmt.Errorf("failed to get working data: %v", ls.Error)
+		return sd, fmt.Errorf("failed to get working data: %v", ws.Error)
 	}
 
 	return &SiteData{ls.Listening, rs.Reading, ws.Working}, nil
