@@ -4,21 +4,20 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"os"
 	"time"
 )
 
-// Volumes represents the relevant response structure of Google Books Bookshelf
-// Volumes List api endpoint
-type Volumes struct {
-	Items []struct {
-		VolumeInfo struct {
+// BooksResponse represents the relevant response structure of Open Library Books api
+type BooksResponse struct {
+	Entries []struct {
+		Work struct {
 			Title   string   `json:"title"`
-			Authors []string `json:"authors"`
-		} `json:"volumeInfo"`
-	} `json:"items"`
+			Authors []string `json:"author_names"`
+		} `json:"work"`
+	} `json:"reading_log_entries"`
 }
 
 // Book represents a publication with a title and author(s)
@@ -27,10 +26,10 @@ type Book struct {
 	Authors []string `json:"authors"`
 }
 
-// GetCurrentlyReading requests Google Books api for items in the user's currently
+// GetCurrentlyReading requests Open Library Books api for items in the user's currently
 // reading bookshelf, and parses the response to build a list of Books.
 func GetCurrentlyReading() (books []Book, err error) {
-	endpoint := fmt.Sprintf("https://www.googleapis.com/books/v1/users/%s/bookshelves/%s/volumes", os.Getenv("GOOGLE_BOOKS_USER_ID"), os.Getenv("GOOGLE_BOOKS_BOOKSHELF_ID"))
+	endpoint := fmt.Sprintf("https://openlibrary.org/people/%s/books/currently-reading.json", os.Getenv("OPENLIBRARY_USER"))
 
 	booksClient := http.Client{
 		Timeout: time.Second * 5,
@@ -38,32 +37,34 @@ func GetCurrentlyReading() (books []Book, err error) {
 
 	req, reqErr := http.NewRequest(http.MethodGet, endpoint, nil)
 	if reqErr != nil {
+		fmt.Println("Error creating request:", reqErr)
 		return nil, reqErr
 	}
 
 	res, getErr := booksClient.Do(req)
 	if getErr != nil || res.StatusCode != http.StatusOK {
-		return nil, errors.New("failed to query google books api")
+		fmt.Println("Response error:", getErr)
+		return nil, errors.New("failed to query open library books api")
 	}
 
-	body, readErr := ioutil.ReadAll(res.Body)
+	body, readErr := io.ReadAll(res.Body)
 	if readErr != nil {
 		return nil, readErr
 	}
 
-	var volumes Volumes
-	jsonErr := json.Unmarshal(body, &volumes)
+	var resp BooksResponse
+	jsonErr := json.Unmarshal(body, &resp)
 	if jsonErr != nil {
 		return nil, jsonErr
 	}
 
 	books = []Book{}
-	for _, book := range volumes.Items {
+	for _, book := range resp.Entries {
 		books = append(
 			books,
 			Book{
-				Title:   book.VolumeInfo.Title,
-				Authors: book.VolumeInfo.Authors,
+				Title:   book.Work.Title,
+				Authors: book.Work.Authors,
 			},
 		)
 	}
