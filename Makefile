@@ -1,5 +1,6 @@
 build: deps
-	GOOS=linux GOARCH=amd64 go build -o netlify/functions/main ./api/main.go
+	mkdir -p functions
+	GOOS=linux GOARCH=amd64 go build -o functions/main ./api/main.go
 	npm run build
 .PHONY: build
 
